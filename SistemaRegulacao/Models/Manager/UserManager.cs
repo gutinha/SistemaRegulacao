@@ -22,7 +22,7 @@ namespace SistemaRegulacao.Models.Manager
                     {
                         user.Active = true;
                         user.CreatedAt = DateTime.Now;
-                        var pass = Util.hash(user.Email + user.Password + user.CreatedAt);
+                        var pass = Util.hash(user.Email + user.Password);
                         user.Password = pass;
                         db.Users.Add(user);
                         db.SaveChanges();

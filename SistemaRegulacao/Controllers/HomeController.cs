@@ -29,9 +29,14 @@ namespace SistemaRegulacao.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Login")]
-        public ActionResult Login(string email, string senha)
+        public IActionResult Login(string email, string senha)
         {
             var user = db.Users.Where(x => x.Email == email && x.Password == Util.hash(email+senha) && x.Active == true).FirstOrDefault();
+            if (user != null)
+            {
+                HttpContext.Session.SetString("userId", user.Id.ToString());
+
+            }
             return RedirectToAction("Index");
         }
 

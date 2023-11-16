@@ -11,9 +11,11 @@ namespace SistemaRegulacao.Models
     [Table("users")]
     public partial class User
     {
-        [Key]
-        [Column("id")]
-        public int Id { get; set; }
+        public User()
+        {
+            Logs = new HashSet<Log>();
+        }
+
         [Required]
         [Column("user")]
         [StringLength(100)]
@@ -39,5 +41,11 @@ namespace SistemaRegulacao.Models
         public string DeletedBy { get; set; }
         [Column("active")]
         public bool? Active { get; set; }
+        [Key]
+        [Column("id")]
+        public long Id { get; set; }
+
+        [InverseProperty("IdUserNavigation")]
+        public virtual ICollection<Log> Logs { get; set; }
     }
 }
