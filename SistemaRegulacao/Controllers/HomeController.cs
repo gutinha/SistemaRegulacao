@@ -9,6 +9,7 @@ namespace SistemaRegulacao.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         public INotyfService _notifyService { get; }
+        public dbContext db = new dbContext();
         public HomeController(ILogger<HomeController> logger, INotyfService notifyService)
         {
             _logger = logger;
@@ -23,6 +24,15 @@ namespace SistemaRegulacao.Controllers
         public IActionResult Login()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("Login")]
+        public ActionResult Login(string email, string senha)
+        {
+            var user = db.Users.Where(x => x.Email == email && x.Password == Util.hash(email+senha) && x.Active == true).FirstOrDefault();
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()
