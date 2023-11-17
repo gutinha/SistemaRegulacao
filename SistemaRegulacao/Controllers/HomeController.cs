@@ -29,15 +29,21 @@ namespace SistemaRegulacao.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Login")]
-        public IActionResult Login(string email, string senha)
+        public IActionResult Login(string email, string password)
         {
-            var user = db.Users.Where(x => x.Email == email && x.Password == Util.hash(email+senha) && x.Active == true).FirstOrDefault();
+            var user = db.Users.Where(x => x.Email == email && x.Password == Util.hash(email+password) && x.Active == true).FirstOrDefault();
             if (user != null)
             {
-                HttpContext.Session.SetString("userId", user.Id.ToString());
-
+                HttpContext.Session.SetString("idUser", user.Id.ToString());
+                _notifyService.Success("Login realizado com sucesso!");
+                return RedirectToAction("Index", "Home");
             }
-            return RedirectToAction("Index");
+            else
+            {
+                _notifyService.Error("Usuário ou senha inválidos");
+                return View();
+            }
+            
         }
 
         public IActionResult Privacy()

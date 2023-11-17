@@ -1,5 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Index";
+    var str = Context.Session.GetString("idUser");
+    @if (str == null)
+    {
+        Context.Response.Redirect(Url.Content("~/Home/Login"));
+    }
 }
 
 <div class="text-center">

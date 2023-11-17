@@ -23,7 +23,7 @@ namespace SistemaRegulacao.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-           
+            optionsBuilder.UseSqlServer("Data Source=127.0.0.1;Initial Catalog=regulacao;User ID=sa;Password=ZB6HWu2hCK");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
