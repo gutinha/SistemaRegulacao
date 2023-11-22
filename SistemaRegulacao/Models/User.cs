@@ -17,10 +17,10 @@ namespace SistemaRegulacao.Models
         }
 
         [Required]
-        [Column("user")]
+        [Column("name")]
         [StringLength(100)]
         [Unicode(false)]
-        public string User1 { get; set; }
+        public string Name { get; set; }
         [Required]
         [Column("email")]
         [StringLength(100)]
@@ -44,7 +44,16 @@ namespace SistemaRegulacao.Models
         [Key]
         [Column("id")]
         public long Id { get; set; }
+        [Column("role")]
+        public long Role { get; set; }
+        [Required]
+        [Column("cpf")]
+        [StringLength(11)]
+        public string Cpf { get; set; }
 
+        [ForeignKey("Role")]
+        [InverseProperty("Users")]
+        public virtual Role RoleNavigation { get; set; }
         [InverseProperty("IdUserNavigation")]
         public virtual ICollection<Log> Logs { get; set; }
     }

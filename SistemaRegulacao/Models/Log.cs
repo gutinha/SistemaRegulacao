@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SistemaRegulacao.Models
 {
-    [Table("log")]
+    [Table("logs")]
     public partial class Log
     {
         [Key]

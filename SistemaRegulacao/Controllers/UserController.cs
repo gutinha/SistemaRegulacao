@@ -22,6 +22,12 @@ namespace SistemaRegulacao.Controllers
             return View();
         }
 
+        public IActionResult CadastrarUsuario()
+        {
+            ViewBag.TipoUsuario = UserManager.GetRoles();
+            return View();
+        }
+
         public IActionResult ListarUsuariosCadastradosAjax(string search, string sort, string order, int? limit = 10, int? offset = 0)
         {
             using (dbContext db = new dbContext())

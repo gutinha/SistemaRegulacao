@@ -37,6 +37,14 @@ namespace SistemaRegulacao.Models.Manager
             }
         }
 
+        public static List<Role> GetRoles()
+        {
+            using (dbContext db = new dbContext())
+            {
+                return db.Roles.Where(x => x.Deleted == false).ToList();
+            }
+        }
+
         public static User FindUserById(int id)
         {
             using (dbContext db = new dbContext())

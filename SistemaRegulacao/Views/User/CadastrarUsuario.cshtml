@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Tittle = "Cadastrar";
+    List<Role> tipoUsuarios = ViewBag.TipoUsuario;
+}
+<div class="text-center mt-5">
+    <h1> <strong>Cadastro Usuário</strong></h1>
+    <br />
+</div>
+@using (Html.BeginForm("CadastrarUsuario", "User", FormMethod.Post, new { enctype = "multipart/form-data", id = "cadastrarUsuario", autocomplete = "on" }))
+{
+    <div class="container" style="max-width: 100%;">
+        <div class="row row-cols-1 row-cols-md-3">
+            <div class="col ">
+                <div class="card">
+                    <div class="card-header text-white bg-primary" style="font-size: 28px;">Dados do Usuário</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="form-group col-lg-7" id="BuscaSecurity">
+                                        <label for="NomePessoa" class="control-label">Digite abaixo o nome, para a realização do cadastro*:</label>
+                                        <br />
+                                        <input id="NomePessoa" placeholder="Digite o Nome" autocomplete="off" type="text" class="form-control" tabindex="4" required />
+                                    </div>
+                                    <div class="form-group col-lg-4 habilitarformulario" style="display: none;">
+                                        <label for="TipoUsuario" class="control-label">Tipo de Usuário*:</label>
+                                        <br />
+                                        <select class="form-control" id="TipoUsuario" name="TipoUsuario" tabindex="14" style="color: #0c0c0c;" required="">
+                                            <option value="">Selecione o Tipo de Usuário</option>
+                                            @foreach (var tipoUsuario in tipoUsuarios)
+                                            {
+                                                <option value="@tipoUsuario.Id">@tipoUsuario.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row habilitarformulario" style="display: none;">
+                                    <div class="form-group col-lg-2">
+                                        <label for="RgUsuario" class="control-label">RG*:</label>
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" id="RgUsuario" name="RgUsuario" required="" placeholder="Digite o RG" style="color: #0c0c0c;">
+                                        </div>
+                                        <span id=camadaUsuario></span>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <label for="OrgaoExpeditorIdentidadeUsuario" class="control-label">Orgão Expedidor*:</label>
+                                        <input class="form-control" id="OrgaoExpeditorIdentidadeUsuario" name="OrgaoExpeditorIdentidadeUsuario" type="text" placeholder="Digite o Orgão Expedidor" value="" style="color: #0c0c0c;" required="">
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <label for="CPFUsuario" class="control-label">CPF*:</label>
+                                        <input readonly class="form-control" id="CPFUsuario" name="CPFUsuario" type="text" onkeyup="cpfCheckCPFUsuario(this)" maxlength="14" onkeydown="javascript: fMasc(this, mCPF);" placeholder="Digite o CPF" style="color: #0c0c0c;" required="">
+                                        <span id="cpfResponseCPFUsuario"></span>
+                                    </div>
+
+                                </div>
+                                <div class="row habilitarformulario unidadeEscolarPadrao" style="display: none;">
+                                    <div class="form-group col-lg-10">
+                                        <label for="UnidadeEscolar" class="control-label">Unidade Escolar*:</label>
+                                        <br />
+                                        <select class="form-control" id="UnidadeEscolar" name="UnidadeEscolar" tabindex="14" style="color: #0c0c0c;" required="">
+                                            @foreach (var unidadeEscolar in listaUnidadeEscolar)
+                                            {
+                                                <option value="@unidadeEscolar.Id">@unidadeEscolar.Descricao (@unidadeEscolar.Cidade.Descricao - @unidadeEscolar.Cidade.Uf.Sigla)</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div id="SelecionarTurma" class="form-group col-lg-4" style="display: none">
+                                        <label for="Turma" class="control-label">Turma*:</label>
+                                        <br />
+                                        <select class="form-control" id="Turma" name="Turma" tabindex="14" style="color: #0c0c0c;" multiple="multiple">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12" id="unidadeEscolarCoordenadorPam" style="display: none;">
+                                    <label for="UnidadeEscolarCoordenador" class="control-label">Unidades Escolares do Coordenador*:</label>
+                                    <select class="form-control" id="UnidadeEscolarCoordenador" name="UnidadeEscolarCoordenador[]" multiple="multiple" tabindex="14" style="color: #0c0c0c; height: 100px">
+                                        @foreach (var unidadeEscolar in listaUnidadeEscolar)
+                                        {
+                                            <option value="@unidadeEscolar.Id">@unidadeEscolar.Descricao (@unidadeEscolar.Cidade.Descricao - @unidadeEscolar.Cidade.Uf.Sigla)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <p class="infoCamposObrigatorios">* Campos obrigatórios!</p>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="habilitarformulario" style="display: none;">
+        <a id="btn-back" href="@Url.Action("Index", "Usuario")" class="btn btn-info">Voltar</a>
+        <button type="submit" class="btn btn-success" id="btnEnvia" name="btnEnvia">
+            <span class="fa fa-save fa-w-2"></span>&nbsp;&nbsp;Salvar
+        </button>
+    </div>
+    <br />
+    <span id="ValidacpfResponseCPFUsuario"></span>
+
+}

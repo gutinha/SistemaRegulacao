@@ -16,7 +16,11 @@
    "T4TemplatePath": null,
    "Tables": [
       {
-         "Name": "[dbo].[log]",
+         "Name": "[dbo].[logs]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[role]",
          "ObjectType": 0
       },
       {
