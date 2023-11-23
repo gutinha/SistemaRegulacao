@@ -1,0 +1,45 @@
+CREATE TABLE regulacao.dbo.roles (
+	id bigint IDENTITY(0,1) NOT NULL,
+	name nvarchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[level] bigint NOT NULL,
+	deleted bit DEFAULT 0 NOT NULL,
+	CONSTRAINT role_PK PRIMARY KEY (id)
+);
+
+
+-- regulacao.dbo.users definition
+
+-- Drop table
+
+-- DROP TABLE regulacao.dbo.users;
+
+CREATE TABLE regulacao.dbo.users (
+	name varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	email varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	password varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	created_at datetime NOT NULL,
+	deleted_at datetime NULL,
+	deleted_by varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	active bit DEFAULT 1 NULL,
+	id bigint IDENTITY(0,1) NOT NULL,
+	[role] bigint NOT NULL,
+	cpf nvarchar(11) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	CONSTRAINT users_PK PRIMARY KEY (id),
+	CONSTRAINT users_FK FOREIGN KEY ([role]) REFERENCES regulacao.dbo.roles(id)
+);
+
+
+-- regulacao.dbo.logs definition
+
+-- Drop table
+
+-- DROP TABLE regulacao.dbo.logs;
+
+CREATE TABLE regulacao.dbo.logs (
+	Id bigint IDENTITY(0,1) NOT NULL,
+	log_date datetime NOT NULL,
+	id_user bigint NOT NULL,
+	[text] nvarchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	CONSTRAINT log_PK PRIMARY KEY (Id),
+	CONSTRAINT log_FK FOREIGN KEY (id_user) REFERENCES regulacao.dbo.users(id)
+);
