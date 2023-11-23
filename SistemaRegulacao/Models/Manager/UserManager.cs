@@ -41,7 +41,7 @@ namespace SistemaRegulacao.Models.Manager
         {
             using (dbContext db = new dbContext())
             {
-                return db.Roles.Where(x => x.Deleted == false).ToList();
+                return db.Roles.Where(x => x.Deleted == false && x.Name != "Admin").ToList();
             }
         }
 
@@ -57,7 +57,7 @@ namespace SistemaRegulacao.Models.Manager
         {
             using (dbContext db = new dbContext())
             {
-                return db.Users.Where(x => x.User1 == name).First();
+                return db.Users.Where(x => x.Name == name).First();
             }
         }
 

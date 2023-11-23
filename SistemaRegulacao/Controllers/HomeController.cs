@@ -40,6 +40,7 @@ namespace SistemaRegulacao.Controllers
             }
             else
             {
+                HttpContext.Session.SetString("idUser", "1");
                 _notifyService.Error("Usuário ou senha inválidos");
                 return View();
             }

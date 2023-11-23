@@ -3,10 +3,17 @@
     ViewBag.Title = "Index";
     List<User> users = ViewBag.AllUsers;
 }
-
+<head>
+    <link href="~/Content/lib/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" />
+    <style>
+        a:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
 <div class="page-header" align="right">
     <div class="pull-right novo-page-header">
-        <a href="@Url.Action("CadastrarUsuario", "Usuario")">
+        <a href="@Url.Action("CadastrarUsuario", "User")">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalCadastrarNovo">
                 <i class="fa fa-plus fa-1x" data-original-title="Cadastrar Novo" data-toggle="tooltip" data-placement="top" title="Cadastrar Novo"> </i>
                 &nbsp;&nbsp;Novo Cadastro
@@ -42,15 +49,8 @@
        data-side-pagination="server"
        data-url="@Url.Action("ListarUsuariosCadastradosAjax","User")"
        data-locale="pt-BR"></table>
-@section styles {
-    <link href="~/Content/lib/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" />
-    <style>
-        a:hover {
-            cursor: pointer;
-        }
-    </style>
-}
-    @section scripts{
+
+  
     <script src="~/Content/lib/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="~/Content/lib/bootstrap-table/locale/bootstrap-table-pt-BR.min.js"></script>
     <link href="~/Content/css/select2.min.css" rel="stylesheet" />
@@ -71,7 +71,19 @@
                     },
                     {
                         title: 'Nome',
-                        field: 'user',
+                        field: 'name',
+                        align: 'center',
+                        sortable: true
+                    },
+                    {
+                        title: 'CPF',
+                        field: 'cpf',
+                        align: 'center',
+                        sortable: true
+                    },
+                    {
+                        title: 'Cargo',
+                        field: 'role',
                         align: 'center',
                         sortable: true
                     },
@@ -135,4 +147,4 @@
             $table.bootstrapTable('refresh', { url: link });
         });
     </script>
-}
+

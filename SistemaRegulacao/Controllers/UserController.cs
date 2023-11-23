@@ -40,11 +40,11 @@ namespace SistemaRegulacao.Controllers
                 {
                     case "user":
                         if (order.Equals("asc")){
-                            users = users.OrderBy(x => x.User1);
+                            users = users.OrderBy(x => x.Name);
                         }
                         else
                         {
-                            users = users.OrderByDescending(x => x.User1);
+                            users = users.OrderByDescending(x => x.Name);
                         }
                         break;
                     case "email":
@@ -58,7 +58,7 @@ namespace SistemaRegulacao.Controllers
                         }
                         break;
                     default:
-                        users = users.OrderBy(x => x.User1);
+                        users = users.OrderBy(x => x.Name);
                         break;
                 }
 
@@ -70,16 +70,16 @@ namespace SistemaRegulacao.Controllers
                         if (int.TryParse(search, out temp))
                         {
                             int number = Convert.ToInt32(search);
-                            users = users.Where(x => x.User1.ToLower().Contains(search.ToLower()) || x.Email.ToLower().Contains(search.ToLower()));
+                            users = users.Where(x => x.Name.ToLower().Contains(search.ToLower()) || x.Email.ToLower().Contains(search.ToLower()));
                         }
                         else
                         {
-                            users = users.Where(x => x.User1.ToLower().Contains(search.ToLower()) || x.Email.ToLower().Contains(search.ToLower()));
+                            users = users.Where(x => x.Name.ToLower().Contains(search.ToLower()) || x.Email.ToLower().Contains(search.ToLower()));
                         }
                     } 
                     catch (Exception)
                     {
-                        users = users.Where(x => x.User1.ToLower().Contains(search.ToLower()));
+                        users = users.Where(x => x.Name.ToLower().Contains(search.ToLower()));
                     }
                 }
                 int totalItens = users.Count();
@@ -89,7 +89,7 @@ namespace SistemaRegulacao.Controllers
                     .ToList()
                     .Select(x => new
                     {
-                        x.Id, x.User1, x.Email
+                        x.Id, x.Name, x.Email
                     })
                     .ToList();
                 return Json(new { total = totalItens, rows = resultados }, new System.Text.Json.JsonSerializerOptions());
